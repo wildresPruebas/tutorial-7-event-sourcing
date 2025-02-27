@@ -16,6 +16,7 @@ bp = api.crear_blueprint('vuelos', '/vuelos')
 @bp.route('/reserva', methods=('POST',))
 def reservar_usando_comando():
     try:
+        print("==========ENTRA ENDOPINT  reservar_usando_comando============")
         # NOTE Asignamos el valor 'pulsar' para usar la Unidad de trabajo de Pulsar y 
         # no la defecto de SQLAlchemy
         session['uow_metodo'] = 'pulsar'

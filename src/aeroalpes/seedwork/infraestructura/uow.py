@@ -86,6 +86,7 @@ class UnidadTrabajo(ABC):
     def _publicar_eventos_post_commit(self):
         try:
             for evento in self._obtener_eventos():
+                print("==========HACIENDO COMMIT DESDE UOW ============")
                 dispatcher.send(signal=f'{type(evento).__name__}Integracion', evento=evento)
         except:
             logging.error('ERROR: Suscribiendose al tópico de eventos!')
@@ -100,6 +101,7 @@ def is_flask():
         return False
 
 def registrar_unidad_de_trabajo(serialized_obj):
+    print("==========REGISTRAR UOW ============")
     from aeroalpes.config.uow import UnidadTrabajoSQLAlchemy
     from flask import session
     
