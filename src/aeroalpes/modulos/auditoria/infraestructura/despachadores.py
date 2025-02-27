@@ -1,7 +1,7 @@
 import pulsar
 from pulsar.schema import *
 
-from aeroalpes.modulos.auditoria.infraestructura.schema.v1.eventos import EventoRegulacionCreada, RegulacionCreadaPayload
+from aeroalpes.modulos.auditoria.infraestructura.schema.v1.eventos import EventoRegulacionCreada
 from aeroalpes.modulos.auditoria.infraestructura.schema.v1.comandos import ComandoCrearRegulacion, ComandoCrearRegulacionPayload
 from aeroalpes.seedwork.infraestructura import utils
 
