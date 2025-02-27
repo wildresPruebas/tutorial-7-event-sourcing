@@ -162,9 +162,6 @@ class UnidadTrabajoPuerto:
 
     @staticmethod
     def registrar_batch(operacion, *args, lock=Lock.PESIMISTA, **kwargs):
-        print("Entra#1")
         uow = unidad_de_trabajo()
-        print("Entra#2")
         uow.registrar_batch(operacion, *args, lock=lock, **kwargs)
-        print("Entra#3")
         guardar_unidad_trabajo(uow)

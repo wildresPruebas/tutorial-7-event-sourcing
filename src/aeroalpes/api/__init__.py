@@ -32,6 +32,7 @@ def comenzar_consumidor(app):
     import aeroalpes.modulos.precios_dinamicos.infraestructura.consumidores as precios_dinamicos
     import aeroalpes.modulos.vehiculos.infraestructura.consumidores as vehiculos
     import aeroalpes.modulos.vuelos.infraestructura.consumidores as vuelos
+    import aeroalpes.modulos.auditoria.infraestructura.consumidores as auditorias
 
     # Suscripción a eventos
     threading.Thread(target=cliente.suscribirse_a_eventos).start()
@@ -40,6 +41,7 @@ def comenzar_consumidor(app):
     threading.Thread(target=precios_dinamicos.suscribirse_a_eventos).start()
     threading.Thread(target=vehiculos.suscribirse_a_eventos).start()
     threading.Thread(target=vuelos.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=auditorias.suscribirse_a_eventos, args=[app]).start()
 
     # Suscripción a comandos
     threading.Thread(target=cliente.suscribirse_a_comandos).start()
@@ -82,6 +84,7 @@ def create_app(configuracion={}):
     from . import precios_dinamicos
     from . import vehiculos
     from . import vuelos
+    from . import auditoria
 
     # Registro de Blueprints
     app.register_blueprint(cliente.bp)
@@ -90,6 +93,7 @@ def create_app(configuracion={}):
     app.register_blueprint(precios_dinamicos.bp)
     app.register_blueprint(vehiculos.bp)
     app.register_blueprint(vuelos.bp)
+    app.register_blueprint(auditoria.bp)
 
     @app.route("/spec")
     def spec():
