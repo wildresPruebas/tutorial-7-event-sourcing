@@ -36,7 +36,7 @@ class RepositorioRegulacionesSQLAlchemy(RepositorioRegulaciones):
     def agregar(self, regulacion: Regulacion):
         print("AGRGAR REGISTRO EN LA bd") 
         regulacion_dto = self.fabrica_auditorias.crear_objeto(regulacion, MapeadorRegulacion())
-        print("PERSISTE EN BASE DE DATOS2") 
+        print(f"PERSISTE EN BASE DE DATOS2 {{regulacion_dto}}") 
         db.session.add(regulacion_dto)
 
     def actualizar(self, regulacion: Regulacion):
@@ -47,7 +47,7 @@ class RepositorioRegulacionesSQLAlchemy(RepositorioRegulaciones):
         # TODO
         raise NotImplementedError
 
-class RepositorioEventosReservaSQLAlchemy(RepositorioEventosRegulaciones):
+class RepositorioEventosRegulacionSQLAlchemy(RepositorioEventosRegulaciones):
 
     def __init__(self):
         self._fabrica_auditorias: FabricaAuditorias = FabricaAuditorias()

@@ -9,10 +9,8 @@ from dataclasses import dataclass, field
 from aeroalpes.seedwork.dominio.fabricas import Fabrica
 from aeroalpes.seedwork.dominio.repositorios import Repositorio
 from aeroalpes.seedwork.infraestructura.vistas import Vista
-from aeroalpes.modulos.vuelos.infraestructura.vistas import VistaReserva
-from aeroalpes.modulos.vuelos.dominio.entidades import Reserva
 from aeroalpes.modulos.auditoria.dominio.repositorios import RepositorioRegulaciones, RepositorioEventosRegulaciones
-from .repositorios import RepositorioRegulacionesSQLAlchemy, RepositorioEventosReservaSQLAlchemy
+from .repositorios import RepositorioRegulacionesSQLAlchemy, RepositorioEventosRegulacionSQLAlchemy
 from .excepciones import ExcepcionFabrica
 
 @dataclass
@@ -22,14 +20,6 @@ class FabricaRepositorio(Fabrica):
         if obj == RepositorioRegulaciones:
             return RepositorioRegulacionesSQLAlchemy()
         elif obj == RepositorioEventosRegulaciones:            
-            return RepositorioEventosReservaSQLAlchemy()
-        else:
-            raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')
-
-@dataclass
-class FabricaVista(Fabrica):
-    def crear_objeto(self, obj: type, mapeador: any = None) -> Vista:
-        if obj == Reserva:
-            return VistaReserva()
+            return RepositorioEventosRegulacionSQLAlchemy()
         else:
             raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')

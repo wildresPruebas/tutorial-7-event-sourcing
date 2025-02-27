@@ -1,13 +1,11 @@
 import aeroalpes.seedwork.presentacion.api as api
 import json
-from aeroalpes.modulos.vuelos.aplicacion.dto import ReservaDTO
 from aeroalpes.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import request, session
 from flask import Response
 from aeroalpes.modulos.auditoria.aplicacion.mapeadores import MapeadorRegulacionDTOJson
 from aeroalpes.modulos.auditoria.aplicacion.comandos.crear_regulacion import CrearRegulacion
-from aeroalpes.modulos.vuelos.aplicacion.queries.obtener_reserva import ObtenerReserva
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from aeroalpes.seedwork.aplicacion.queries import ejecutar_query
 

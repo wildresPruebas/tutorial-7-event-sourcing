@@ -18,8 +18,9 @@ class ProyeccionRegulacion(Proyeccion, ABC):
 
 class ProyeccionRegulacionesLista(ProyeccionRegulacion):
     print("ENTRA PROYECCION REGULACIONES")
-    def __init__(self, fecha_creacion, fecha_actualizacion):
+    def __init__(self, id_regulacion,fecha_creacion, fecha_actualizacion):
         self.nombre = "TESTNOMBRE"
+        self.id_regulacion = id_regulacion
         self.fecha_creacion = millis_a_datetime(fecha_creacion)
         self.fecha_actualizacion = millis_a_datetime(fecha_actualizacion)
     
@@ -30,17 +31,12 @@ class ProyeccionRegulacionesLista(ProyeccionRegulacion):
         
         fabrica_repositorio = FabricaRepositorio()
         repositorio = fabrica_repositorio.crear_objeto(RepositorioRegulaciones)
-        print("aca es la proyeccion algo debe hacer ")
+        print("aca es la proyeccion algo debe hacer Y PERSISTE ALGO, REVISAR")
         repositorio.agregar(
             Regulacion(
                 id=str(self.id_regulacion), 
-                nombre=str(self.nombre), 
                 fecha_creacion=self.fecha_creacion, 
                 fecha_actualizacion=self.fecha_actualizacion))
-        
-        # TODO ¿Y si la reserva ya existe y debemos actualizarla? Complete el método para hacer merge
-
-        # TODO ¿Tal vez podríamos reutilizar la Unidad de Trabajo?
         db.session.commit()
 
 class ProyeccionRegulacionHandler(ProyeccionHandler):

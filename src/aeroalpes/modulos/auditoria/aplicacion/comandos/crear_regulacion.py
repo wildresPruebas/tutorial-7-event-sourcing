@@ -9,7 +9,7 @@ from aeroalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from aeroalpes.modulos.auditoria.aplicacion.mapeadores import MapeadorRegulacion
 from aeroalpes.modulos.auditoria.infraestructura.repositorios import RepositorioRegulaciones, RepositorioEventosRegulaciones
 
-#UN CommanHandler se usa para ejecutar el comando en este caso CrearReserva es el comando y CrearReservaHandler es el handler quien ejecuta al comando
+#UN CommanHandler se usa para ejecutar el comando en este caso CrearRegulacion es el comando y CrearRegulacionaHandler es el handler quien ejecuta al comando
 @dataclass
 class CrearRegulacion(Comando): #ESTE ES EL COMANDO
     id: str
