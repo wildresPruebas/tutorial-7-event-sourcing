@@ -39,6 +39,7 @@ class ProyeccionReservasTotales(ProyeccionReserva):
             record.total -= 1 
             record.total = max(record.total, 0)
         else:
+            print("PERSISTE EN BASE DE DATOS3") 
             db.session.add(ReservaAnalitica(fecha_creacion=self.fecha_creacion.date(), total=1))
         
         db.session.commit()

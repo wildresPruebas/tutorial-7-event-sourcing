@@ -15,6 +15,7 @@ from aeroalpes.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
 from aeroalpes.seedwork.infraestructura import utils
 
 def suscribirse_a_eventos(app=None):
+    print("SUSCRBIRSE A ESUCHAR LOS EVENTOS DE PULSAR AL INICAR LA APP")
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
@@ -23,7 +24,7 @@ def suscribirse_a_eventos(app=None):
         while True:
             mensaje = consumidor.receive()
             datos = mensaje.value().data
-            print(f'Evento recibido: {datos}')
+            print(f'Evento recibido EN PULSAR: {datos}')
 
             # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
             ejecutar_proyeccion(ProyeccionReservasTotales(datos.fecha_creacion, ProyeccionReservasTotales.ADD), app=app)

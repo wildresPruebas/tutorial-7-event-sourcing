@@ -65,7 +65,7 @@ class RepositorioReservasSQLAlchemy(RepositorioReservas):
 
     def agregar(self, reserva: Reserva):
         reserva_dto = self.fabrica_vuelos.crear_objeto(reserva, MapeadorReserva())
-
+        print("PERSISTE EN BASE DE DATOS2") 
         db.session.add(reserva_dto)
 
     def actualizar(self, reserva: Reserva):
@@ -107,7 +107,7 @@ class RepositorioEventosReservaSQLAlchemy(RepositorioEventosReservas):
         evento_dto.formato_contenido = 'JSON'
         evento_dto.nombre_servicio = str(reserva_evento.service_name)
         evento_dto.contenido = json_str
-
+        print("PERSISTE EN BASE DE DATOS1") 
         db.session.add(evento_dto)
 
     def actualizar(self, reserva: Reserva):

@@ -18,11 +18,12 @@ from .excepciones import ExcepcionFabrica
 @dataclass
 class FabricaRepositorio(Fabrica):
     def crear_objeto(self, obj: type, mapeador: any = None) -> Repositorio:
+        print("                      RETORNA UN REPOSITORIO DE TIPO SQLAlchemy   ============")
         if obj == RepositorioReservas:
             return RepositorioReservasSQLAlchemy()
         elif obj == RepositorioProveedores:
             return RepositorioProveedoresSQLAlchemy()
-        elif obj == RepositorioEventosReservas:
+        elif obj == RepositorioEventosReservas:            
             return RepositorioEventosReservaSQLAlchemy()
         else:
             raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')

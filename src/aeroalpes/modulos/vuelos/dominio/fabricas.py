@@ -21,7 +21,7 @@ class _FabricaReserva(Fabrica):
             return mapeador.entidad_a_dto(obj)
         else:
             reserva: Reserva = mapeador.dto_a_entidad(obj)
-
+            print("         ==========PASO#4 EJECUTAR VALIDACIONES============")
             self.validar_regla(MinimoUnItinerario(reserva.itinerarios))
             [self.validar_regla(RutaValida(ruta)) for itin in reserva.itinerarios for odo in itin.odos for segmento in odo.segmentos for ruta in segmento.legs]
             
