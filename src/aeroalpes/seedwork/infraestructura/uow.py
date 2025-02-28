@@ -82,7 +82,7 @@ class UnidadTrabajo(ABC):
             if repositorio_eventos_func:
                 print(f" EJECUTA EL METODO PASADO POR PARAMETRO {repositorio_eventos_func}")
                 repositorio_eventos_func(evento)
-            print("  ENVIA EVENTO DE DOMINIO PARA LA CREACION DE LA RESERVA")
+            print(f"  ENVIA EVENTO DE DOMINIO PARA LA CREACION DE LA RESERVA {evento}")
             dispatcher.send(signal=f'{type(evento).__name__}Dominio', evento=evento)
 
     def _publicar_eventos_post_commit(self):
@@ -162,6 +162,7 @@ class UnidadTrabajoPuerto:
 
     @staticmethod
     def registrar_batch(operacion, *args, lock=Lock.PESIMISTA, **kwargs):
+        print(F"REGISTRA BATCH {operacion}")
         uow = unidad_de_trabajo()
         uow.registrar_batch(operacion, *args, lock=lock, **kwargs)
         guardar_unidad_trabajo(uow)

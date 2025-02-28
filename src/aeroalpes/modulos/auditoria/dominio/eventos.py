@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from aeroalpes.seedwork.dominio.eventos import (EventoDominio)
+import aeroalpes.modulos.auditoria.dominio.objetos_valor as ov
 from datetime import datetime
 
 class EventoRegulacion(EventoDominio):
@@ -12,4 +13,5 @@ class RegulacionCreada(EventoRegulacion):
     nombre: str = None
     version: str = None
     region: str = None
+    requisitos: list[ov.Requisito] = field(default_factory=list[ov.Requisito])
     fecha_creacion: datetime = None

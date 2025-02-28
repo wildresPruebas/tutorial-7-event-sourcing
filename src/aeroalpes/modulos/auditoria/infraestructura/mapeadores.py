@@ -40,15 +40,22 @@ class MapadeadorEventosRegulacion(Mapeador):
     def _entidad_a_regulacion_creada(self, entidad: RegulacionCreada, version=LATEST_VERSION):
         print(f"ENTRA A RegulacionCreadaPayloadd########################################################################## {entidad}")
         def v1(evento):
-            from .schema.v1.eventos import RegulacionCreadaPayload, EventoRegulacionCreada
+            print(f"ENTRA1 A evento########################################################################## {evento.requisitos}")
+            from .schema.v1.eventos import RegulacionCreadaPayload, EventoRegulacionCreada            
 
+
+
+            print(f"ENTRA2 A evento########################################################################## {evento.requisitos}")
             payload = RegulacionCreadaPayload(
                 id_regulacion=str(evento.id_regulacion), 
                 nombre=str(evento.nombre),           
                 version=str(evento.version),           
-                region=str(evento.region),                 
+                region=str(evento.region),        
+                requisitos=[{"codigo":"algo"}],                 
                 fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
+
+            print(f"PAYLOAD ES {payload}")
             evento_integracion = EventoRegulacionCreada(id=str(evento.id))
             evento_integracion.id = str(evento.id)
             evento_integracion.time = int(unix_time_millis(evento.fecha_creacion))

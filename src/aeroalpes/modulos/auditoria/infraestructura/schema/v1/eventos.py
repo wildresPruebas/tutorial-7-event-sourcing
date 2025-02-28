@@ -3,12 +3,18 @@ from aeroalpes.seedwork.infraestructura.schema.v1.eventos import EventoIntegraci
 from aeroalpes.seedwork.infraestructura.utils import time_millis
 import uuid
 
+class Requisito(Record):
+    codigo = String()
+    descripcion = String()
+    obligatorio = Boolean()
+
 class RegulacionCreadaPayload(Record):
     id_regulacion = String()
     nombre = String()
     region = String()
     version = String()
-    fecha_creacion = Long()
+    requisitos = Array(Requisito())
+    fecha_creacion = Long()       
 
 class EventoRegulacionCreada(EventoIntegracion):
     # NOTE La librería Record de Pulsar no es capaz de reconocer campos heredados, 

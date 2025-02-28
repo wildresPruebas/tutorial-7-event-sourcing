@@ -9,7 +9,7 @@ class MapeadorRegulacionDTOJson(AppMap):
         return RequisitoDTO(requisito.get('codigo'), requisito.get('descripcion'), requisito.get('obligatorio'))
     
     def externo_a_dto(self, externo: dict) -> RegulacionDTO:
-        regulacion_dto = RegulacionDTO()
+        regulacion_dto = RegulacionDTO(externo.get('id'), externo.get('nombre'), externo.get('region'), externo.get('version'))    
         for req in externo.get('requisitos', list()):
             regulacion_dto.requisitos.append(self._procesar_requisito(req))
 
@@ -41,8 +41,10 @@ class MapeadorRegulacion(RepMap):
         
 
     def entidad_a_dto(self, entidad: Regulacion) -> RegulacionDTO:
-        
         _id = str(entidad.id)
+        nombre= str(entidad.nombre)
+        region= str(entidad.region)
+        version= str(entidad.version)
         fecha_creacion = entidad.fecha_creacion.strftime(self._FORMATO_FECHA)
         fecha_actualizacion = entidad.fecha_actualizacion.strftime(self._FORMATO_FECHA)        
         requisitos = list()
@@ -50,12 +52,13 @@ class MapeadorRegulacion(RepMap):
         for req in entidad.requisitos:
             requisitos.append(RequisitoDTO(codigo=req.codigo, descripcion=req.descripcion, obligatorio=req.obligatorio))
         
-        return RegulacionDTO(fecha_creacion, fecha_actualizacion, _id, requisitos)
+        return RegulacionDTO(_id, nombre, region, version, fecha_creacion, fecha_actualizacion, requisitos)
 
     def dto_a_entidad(self, dto: RegulacionDTO) -> Regulacion:
-        print("==========PASO#6============")
         regulacion = Regulacion()
-        print("==========PASO#7============")
+        regulacion.nombre = dto.nombre
+        regulacion.region = dto.region
+        regulacion.version = dto.version
         regulacion.requisitos = list()
 
         requisitos_dto: list[RequisitoDTO] = dto.requisitos

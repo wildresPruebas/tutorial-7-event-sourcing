@@ -34,9 +34,11 @@ class RepositorioRegulacionesSQLAlchemy(RepositorioRegulaciones):
         raise NotImplementedError
 
     def agregar(self, regulacion: Regulacion):
-        print(f"AGRGAR REGISTRO EN LA bd {regulacion}") 
+        print(f"AGRGAR REGISTRO EN LA bd sin hacer commit {regulacion}") 
         regulacion_dto = self.fabrica_auditorias.crear_objeto(regulacion, MapeadorRegulacion())
-        print(f"PERSISTE EN BASE DE DATOS2 {regulacion_dto.nombre}") 
+        print(f"PERSISTE EN BASE DE DATOS2 {regulacion_dto.requisitos}") 
+        for req in regulacion_dto.requisitos:
+             db.session.add(req)
         db.session.add(regulacion_dto)
 
     def actualizar(self, regulacion: Regulacion):
@@ -65,10 +67,12 @@ class RepositorioEventosRegulacionSQLAlchemy(RepositorioEventosRegulaciones):
 
     def agregar(self, evento):
         regulacion_evento = self.fabrica_auditorias.crear_objeto(evento, MapadeadorEventosRegulacion())
-
+        print(F"LLEGA ACA1  {regulacion_evento.data}")
+        print(F"LLEGA ACA2  {regulacion_evento.data.__class__}")
         parser_payload = JsonSchema(regulacion_evento.data.__class__)
+        print(F"LLEGA ACA2  {regulacion_evento.data}")
         json_str = parser_payload.encode(regulacion_evento.data)
-
+        print(F"LLEGA ACA3  {regulacion_evento.data}")
         evento_dto = EventosRegulacion()
         evento_dto.id = str(evento.id)
         evento_dto.id_entidad = str(evento.id_regulacion)
