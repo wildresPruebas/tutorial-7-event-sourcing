@@ -56,6 +56,7 @@ class RepositorioReservasSQLAlchemy(RepositorioReservas):
         return self._fabrica_vuelos
 
     def obtener_por_id(self, id: UUID) -> Reserva:
+        print("Entra#1")
         reserva_dto = db.session.query(ReservaDTO).filter_by(id=str(id)).one()
         return self.fabrica_vuelos.crear_objeto(reserva_dto, MapeadorReserva())
 

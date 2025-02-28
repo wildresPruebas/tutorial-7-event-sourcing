@@ -26,6 +26,7 @@ class RepositorioRegulacionesSQLAlchemy(RepositorioRegulaciones):
         return self._fabrica_auditorias
 
     def obtener_por_id(self, id: UUID) -> Regulacion:
+        print("Entra#1")
         regulacion_dto = db.session.query(RegulacionDTO).filter_by(id=str(id)).one()
         return self._fabrica_auditorias.crear_objeto(regulacion_dto, MapeadorRegulacion())
 
@@ -34,9 +35,9 @@ class RepositorioRegulacionesSQLAlchemy(RepositorioRegulaciones):
         raise NotImplementedError
 
     def agregar(self, regulacion: Regulacion):
-        print(f"AGRGAR REGISTRO EN LA bd sin hacer commit {regulacion}") 
+        print("AGRGAR REGISTRO EN LA bd sin hacer commit") 
         regulacion_dto = self.fabrica_auditorias.crear_objeto(regulacion, MapeadorRegulacion())
-        print(f"PERSISTE EN BASE DE DATOS2 {regulacion_dto.requisitos}") 
+        print("PERSISTE EN BASE DE DATOS2") 
         for req in regulacion_dto.requisitos:
              db.session.add(req)
         db.session.add(regulacion_dto)

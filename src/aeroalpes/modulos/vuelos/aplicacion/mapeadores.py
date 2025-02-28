@@ -109,8 +109,9 @@ class MapeadorReserva(RepMap):
 
     def dto_a_entidad(self, dto: ReservaDTO) -> Reserva:
         reserva = Reserva()
-        reserva.itinerarios = list()
-
+        print(f"Entra1 {dto}")
+        reserva.itinerarios = list()    
+        print(f"Entra2 {dto}")   
         itinerarios_dto: list[ItinerarioDTO] = dto.itinerarios
 
         for itin in itinerarios_dto:

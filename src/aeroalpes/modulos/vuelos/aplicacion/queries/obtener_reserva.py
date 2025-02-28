@@ -15,7 +15,8 @@ class ObtenerReservaHandler(ReservaQueryBaseHandler):
 
     def handle(self, query: ObtenerReserva) -> QueryResultado:
         vista = self.fabrica_vista.crear_objeto(Reserva)
-        reserva =  self.fabrica_vuelos.crear_objeto(vista.obtener_por(id=query.id)[0], MapeadorReserva())
+        print(f"Resltado {vista.obtener_por(id=query.id)}")
+        reserva =  self.fabrica_vuelos.crear_objeto(vista.obtener_por(id=query.id), MapeadorReserva())
         return QueryResultado(resultado=reserva)
 
 @query.register(ObtenerReserva)

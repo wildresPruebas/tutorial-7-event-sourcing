@@ -24,8 +24,7 @@ def suscribirse_a_eventos(app=None):
         while True:
             mensaje = consumidor.receive()
             datos = mensaje.value().data
-            print(f'Evento recibido EN PULSAR REGULacion: {datos}')
-            print(f'requisitos: {datos.requisitos[0]}')
+            print('Evento recibido EN PULSAR REGULacion:')
 
             # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
             ejecutar_proyeccion(ProyeccionRegulacionesLista(datos.id_regulacion, datos.nombre, datos.region, datos.version, datos.fecha_creacion, 

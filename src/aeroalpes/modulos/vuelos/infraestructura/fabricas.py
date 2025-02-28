@@ -31,7 +31,9 @@ class FabricaRepositorio(Fabrica):
 @dataclass
 class FabricaVista(Fabrica):
     def crear_objeto(self, obj: type, mapeador: any = None) -> Vista:
+        print("Entra1.1")
         if obj == Reserva:
+            print("Entra1.2")
             return VistaReserva()
         else:
             raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')
