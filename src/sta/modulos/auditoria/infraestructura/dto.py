@@ -1,10 +1,3 @@
-"""DTOs para la capa de infrastructura del dominio de vuelos
-
-En este archivo usted encontrará los DTOs (modelos anémicos) de
-la infraestructura del dominio de vuelos
-
-"""
-
 from sta.config.db import db
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, ForeignKey

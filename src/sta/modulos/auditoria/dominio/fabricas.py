@@ -1,13 +1,6 @@
-""" Fábricas para la creación de objetos del dominio de vuelos
-
-En este archivo usted encontrará las diferentes fábricas para crear
-objetos complejos del dominio de vuelos
-
-"""
-
 from .entidades import Regulacion
 from .reglas import MinimoUnRequisito
-from .excepciones import TipoObjetoNoExisteEnDominioVuelosExcepcion
+from .excepciones import TipoObjetoNoExisteEnDominioAuditoriasExcepcion
 from sta.seedwork.dominio.repositorios import Mapeador
 from sta.seedwork.dominio.fabricas import Fabrica
 from sta.seedwork.dominio.entidades import Entidad
@@ -34,5 +27,5 @@ class FabricaAuditorias(Fabrica):
             fabrica_regulacion = _FabricaRegulacion()
             return fabrica_regulacion.crear_objeto(obj, mapeador)
         else:
-            raise TipoObjetoNoExisteEnDominioVuelosExcepcion()
+            raise TipoObjetoNoExisteEnDominioAuditoriasExcepcion()
 

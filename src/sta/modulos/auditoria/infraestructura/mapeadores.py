@@ -1,9 +1,3 @@
-""" Mapeadores para la capa de infrastructura del dominio de vuelos
-
-En este archivo usted encontrará los diferentes mapeadores
-encargados de la transformación entre formatos de dominio y DTOs
-
-"""
 
 from sta.seedwork.dominio.repositorios import Mapeador
 from sta.seedwork.infraestructura.utils import unix_time_millis

@@ -9,8 +9,8 @@ Este repositorio está basado en el repositorio de liberación de datos visto en
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
 
 - El archivo **src/sta/config/uow.py** ahora incluye una unidad de trabajo para Pulsar, esta nos va ayudar a mantener la consistencia transaccional en el servicio usando Apache Pulsar como nuestro Event Store.
-- El archivo **src/sta/modulos/vuelos/infraestructura/proyecciones.py** cuenta con las diferentes formas en que podemos hacer proyección de nuestros datos. Una de las proyecciones tiene propósitos analíticos y la otra transaccionales.
-- El archivo **src/sta/modulos/vuelos/infraestructura/vistas.py** cuenta con el modelo de vistas que podemos exponer a nuestro clientes. Como se puede observar, este es un modelo bastante genérico definido en el seedwork (pero usted puede hacerlo mucho más complejo).
+- El archivo **src/sta/modulos/auditorias/infraestructura/proyecciones.py** cuenta con las diferentes formas en que podemos hacer proyección de nuestros datos. Una de las proyecciones tiene propósitos analíticos y la otra transaccionales.
+- El archivo **src/sta/modulos/auditorias/infraestructura/vistas.py** cuenta con el modelo de vistas que podemos exponer a nuestro clientes. Como se puede observar, este es un modelo bastante genérico definido en el seedwork (pero usted puede hacerlo mucho más complejo).
 - Los archivos **src/sta/seedwork/infraestructura/proyecciones.py** y **src/sta/seedwork/infraestructura/vistas.py** proveen las interfaces y definiciones genéricas para las proyecciones, handlers y vistas.
 
 ## SalusdTechDeLosAlpes
