@@ -133,6 +133,7 @@ def unidad_de_trabajo() -> UnidadTrabajo:
 
 def guardar_unidad_trabajo(uow: UnidadTrabajo):
     if is_flask():
+        print(f"SERIALIZANDO LA UNIDAD DE TRABNAJO QUE LLEGA {uow}")
         registrar_unidad_de_trabajo(pickle.dumps(uow))
     else:
         raise Exception('No hay unidad de trabajo')
