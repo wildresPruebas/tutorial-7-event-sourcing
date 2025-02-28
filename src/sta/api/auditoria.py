@@ -6,6 +6,7 @@ from flask import request, session
 from flask import Response
 from sta.modulos.auditoria.aplicacion.mapeadores import MapeadorRegulacionDTOJson
 from sta.modulos.auditoria.aplicacion.comandos.crear_regulacion import CrearRegulacion
+from sta.modulos.auditoria.aplicacion.queries.obtener_regulacion import ObtenerRegulacion
 from sta.seedwork.aplicacion.comandos import ejecutar_commando
 from sta.seedwork.aplicacion.queries import ejecutar_query
 
@@ -35,7 +36,20 @@ def regulacion_usando_comando():
         # Revise la clase Despachador de la capa de infraestructura        
         print("PASO FINALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
         ejecutar_commando(comando)
-        
+        print("==================TERMINA============================")
         return Response('{}', status=202, mimetype='application/json')
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+    
+
+@bp.route('/regulacion', methods=('GET',))
+@bp.route('/regulacion/<id>', methods=('GET',))
+def dar_regulacion_usando_query(id=None):
+    if id:
+        print("==========ENTRA ENDOPINT CONSULTAR REGULACION ============")
+        query_resultado = ejecutar_query(ObtenerRegulacion(id))
+        map_regulacion = MapeadorRegulacionDTOJson()
+        
+        return map_regulacion.dto_a_externo(query_resultado.resultado)
+    else:
+        return [{'message': 'GET!'}]
