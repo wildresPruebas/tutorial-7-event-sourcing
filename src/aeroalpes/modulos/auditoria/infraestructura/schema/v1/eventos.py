@@ -5,6 +5,9 @@ import uuid
 
 class RegulacionCreadaPayload(Record):
     id_regulacion = String()
+    nombre = String()
+    region = String()
+    version = String()
     fecha_creacion = Long()
 
 class EventoRegulacionCreada(EventoIntegracion):

@@ -38,12 +38,15 @@ class MapadeadorEventosRegulacion(Mapeador):
         return False
 
     def _entidad_a_regulacion_creada(self, entidad: RegulacionCreada, version=LATEST_VERSION):
-        print("ENTRA A RegulacionCreadaPayload")
+        print(f"ENTRA A RegulacionCreadaPayloadd########################################################################## {entidad}")
         def v1(evento):
             from .schema.v1.eventos import RegulacionCreadaPayload, EventoRegulacionCreada
 
             payload = RegulacionCreadaPayload(
                 id_regulacion=str(evento.id_regulacion), 
+                nombre=str(evento.nombre),           
+                version=str(evento.version),           
+                region=str(evento.region),                 
                 fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
             evento_integracion = EventoRegulacionCreada(id=str(evento.id))
@@ -108,9 +111,12 @@ class MapeadorRegulacion(Mapeador):
     def entidad_a_dto(self, entidad: Regulacion) -> RegulacionDTO:
         
         regulacion_dto = RegulacionDTO()
-        regulacion_dto.fecha_creacion = entidad.fecha_creacion
-        regulacion_dto.fecha_actualizacion = entidad.fecha_actualizacion
         regulacion_dto.id = str(entidad.id)
+        regulacion_dto.nombre = str(entidad.nombre)
+        regulacion_dto.region = str(entidad.region)
+        regulacion_dto.version = str(entidad.version)
+        regulacion_dto.fecha_creacion = entidad.fecha_creacion
+        regulacion_dto.fecha_actualizacion = entidad.fecha_actualizacion        
 
         requisitos_dto = list()
         

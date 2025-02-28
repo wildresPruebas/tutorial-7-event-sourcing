@@ -14,6 +14,11 @@ from aeroalpes.seedwork.dominio.entidades import AgregacionRaiz
 
 @dataclass
 class Regulacion(AgregacionRaiz):
+    print("ENTRASSSSSSSSSSSSSS#1")
+    nombre: ov.Nombre = field(default=ov.Nombre)
+    nombre: ov.Nombre = field(default=ov.Nombre)
+    region: ov.Region = field(default=ov.Region)
+    version: ov.Version = field(default=ov.Version)
     requisitos: list[ov.Requisito] = field(default_factory=list[ov.Requisito])
 
     def crear_regulacion(self, regulacion: Regulacion):        

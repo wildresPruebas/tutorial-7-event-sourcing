@@ -11,12 +11,14 @@ def registrar_handlers():
     import aeroalpes.modulos.vuelos.aplicacion
 
 def importar_modelos_alchemy():
+    print("ACA CREA LAS TABLAS EN LA BASE DE DATOS")
     import aeroalpes.modulos.cliente.infraestructura.dto
     import aeroalpes.modulos.hoteles.infraestructura.dto
     import aeroalpes.modulos.pagos.infraestructura.dto
     import aeroalpes.modulos.precios_dinamicos.infraestructura.dto
     import aeroalpes.modulos.vehiculos.infraestructura.dto
     import aeroalpes.modulos.vuelos.infraestructura.dto
+    import aeroalpes.modulos.auditoria.infraestructura.dto
 
 def comenzar_consumidor(app):
     """
@@ -50,6 +52,7 @@ def comenzar_consumidor(app):
     threading.Thread(target=precios_dinamicos.suscribirse_a_comandos).start()
     threading.Thread(target=vehiculos.suscribirse_a_comandos).start()
     threading.Thread(target=vuelos.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=auditorias.suscribirse_a_comandos, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask

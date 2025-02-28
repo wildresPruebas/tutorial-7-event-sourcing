@@ -9,4 +9,7 @@ class EventoRegulacion(EventoDominio):
 @dataclass
 class RegulacionCreada(EventoRegulacion):
     id_regulacion: uuid.UUID = None
+    nombre: str = None
+    version: str = None
+    region: str = None
     fecha_creacion: datetime = None

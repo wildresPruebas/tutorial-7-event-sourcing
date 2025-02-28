@@ -13,7 +13,7 @@ class Despachador:
 
     def _publicar_mensaje(self, mensaje, topico, schema):
         print("   ")
-        print(F"==========PUBLICAR MENSAJE EN TOPICO PULSAR============ {topico}")
+        print(F"==========PUBLICAR MENSAJE EN TOPICO PULSAR REGULACION============ {topico}")
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         publicador = cliente.create_producer(topico, schema=AvroSchema(EventoRegulacionCreada))
         publicador.send(mensaje)

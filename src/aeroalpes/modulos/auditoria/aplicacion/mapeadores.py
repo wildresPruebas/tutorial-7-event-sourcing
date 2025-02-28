@@ -53,7 +53,9 @@ class MapeadorRegulacion(RepMap):
         return RegulacionDTO(fecha_creacion, fecha_actualizacion, _id, requisitos)
 
     def dto_a_entidad(self, dto: RegulacionDTO) -> Regulacion:
+        print("==========PASO#6============")
         regulacion = Regulacion()
+        print("==========PASO#7============")
         regulacion.requisitos = list()
 
         requisitos_dto: list[RequisitoDTO] = dto.requisitos

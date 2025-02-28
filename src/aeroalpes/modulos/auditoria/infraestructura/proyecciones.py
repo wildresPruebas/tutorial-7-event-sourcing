@@ -18,9 +18,11 @@ class ProyeccionRegulacion(Proyeccion, ABC):
 
 class ProyeccionRegulacionesLista(ProyeccionRegulacion):
     print("ENTRA PROYECCION REGULACIONES")
-    def __init__(self, id_regulacion,fecha_creacion, fecha_actualizacion):
-        self.nombre = "TESTNOMBRE"
+    def __init__(self, id_regulacion, nombre, region, version, fecha_creacion, fecha_actualizacion):
         self.id_regulacion = id_regulacion
+        self.nombre = "TESTNOMBRE"
+        self.region = region
+        self.version = version        
         self.fecha_creacion = millis_a_datetime(fecha_creacion)
         self.fecha_actualizacion = millis_a_datetime(fecha_actualizacion)
     
@@ -35,6 +37,7 @@ class ProyeccionRegulacionesLista(ProyeccionRegulacion):
         repositorio.agregar(
             Regulacion(
                 id=str(self.id_regulacion), 
+                nombre=str(self.nombre), 
                 fecha_creacion=self.fecha_creacion, 
                 fecha_actualizacion=self.fecha_actualizacion))
         db.session.commit()

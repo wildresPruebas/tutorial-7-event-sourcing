@@ -30,7 +30,7 @@ class Requisito(db.Model):
     codigo = Column(db.String(5), nullable=False)
     descripcion = Column(db.String(500), nullable=False)
     obligatorio = Column(db.Boolean, nullable=False)
-    regulacion_id = Column(db.String, ForeignKey("regulaciones.id"), nullable=False)
+    regulacion_id = Column(db.String(40), ForeignKey("regulaciones.id"), nullable=False)
 
     regulacion = relationship("Regulacion", back_populates="requisitos")
 
