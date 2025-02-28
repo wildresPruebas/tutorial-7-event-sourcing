@@ -15,8 +15,7 @@ from .excepciones import ExcepcionFabrica
 
 @dataclass
 class FabricaRepositorio(Fabrica):
-    def crear_objeto(self, obj: type, mapeador: any = None) -> Repositorio:
-        print("                      RETORNA UN REPOSITORIO DE TIPO SQLAlchemy   ============")
+    def crear_objeto(self, obj: type, mapeador: any = None) -> Repositorio:        
         if obj == RepositorioRegulaciones:
             return RepositorioRegulacionesSQLAlchemy()
         elif obj == RepositorioEventosRegulaciones:            

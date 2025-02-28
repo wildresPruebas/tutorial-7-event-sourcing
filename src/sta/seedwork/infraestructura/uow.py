@@ -106,7 +106,7 @@ def registrar_unidad_de_trabajo(serialized_obj):
     from sta.config.uow import UnidadTrabajoSQLAlchemy
     from flask import session
     
-
+    print(f"REGIUSTRADO LA UNIDAD DE TRABAJOOOOOOOO {serialized_obj}")
     session['uow'] = serialized_obj
 
 def flask_uow():
@@ -114,9 +114,10 @@ def flask_uow():
     from sta.config.uow import UnidadTrabajoSQLAlchemy, UnidadTrabajoPulsar
     if session.get('uow'):
         return session['uow']
-
     uow_serialized = pickle.dumps(UnidadTrabajoSQLAlchemy())
+    print("==========PASO#5.6============")
     if session.get('uow_metodo') == 'pulsar':
+        print("==========PASO#5.7============")
         uow_serialized = pickle.dumps(UnidadTrabajoPulsar())
     
     registrar_unidad_de_trabajo(uow_serialized)
@@ -124,7 +125,9 @@ def flask_uow():
 
 def unidad_de_trabajo() -> UnidadTrabajo:
     if is_flask():
-        return pickle.loads(flask_uow())
+        flask_uo = flask_uow()
+        print(f"==========Entra bien============ {flask_uo}")
+        return pickle.loads(flask_uo)
     else:
         raise Exception('No hay unidad de trabajo')
 
@@ -164,5 +167,8 @@ class UnidadTrabajoPuerto:
     def registrar_batch(operacion, *args, lock=Lock.PESIMISTA, **kwargs):
         print(F"REGISTRA BATCH {operacion}")
         uow = unidad_de_trabajo()
+        print("==========PASO#6============")
         uow.registrar_batch(operacion, *args, lock=lock, **kwargs)
+        print("==========PASO#7============")
         guardar_unidad_trabajo(uow)
+        print("==========PASO#8============")

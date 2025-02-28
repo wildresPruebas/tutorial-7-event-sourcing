@@ -26,11 +26,8 @@ class CrearRegulacionHandler(CrearRegulacionBaseHandler): #ESTE ES EL HANDLER
 
         regulacion_dto = RegulacionDTO(id=comando.id, nombre=comando.nombre, region=comando.region, version= comando.version, 
                                        fecha_actualizacion= comando.fecha_actualizacion, requisitos=comando.requisitos)
-        print("==========PASO#2============")
         regulacion: Regulacion = self.fabrica_auditorias.crear_objeto(regulacion_dto, MapeadorRegulacion())
-        print("==========PASO#3============")
         regulacion.crear_regulacion(regulacion)
-        print("==========PASO#4============")
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioRegulaciones)
         repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosRegulaciones)
         print("==========PASO#5============")
