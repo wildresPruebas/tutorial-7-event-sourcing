@@ -41,12 +41,22 @@ def regulacion_usando_comando():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
-
-@bp.route('/regulacion', methods=('GET',))
+@bp.route('/regulacion', methods=('GET',))    
 @bp.route('/regulacion/<id>', methods=('GET',))
 def dar_regulacion_usando_query(id=None):
     if id:
         print("==========ENTRA ENDOPINT CONSULTAR REGULACION ============")
+        query_resultado = ejecutar_query(ObtenerRegulacion(id))
+        map_regulacion = MapeadorRegulacionDTOJson()
+        
+        return map_regulacion.dto_a_externo(query_resultado.resultado)
+    else:
+        return [{'message': 'GET!'}]
+
+@bp.route('/regulacion', methods=('GET',))
+def dar_todas_regulaciones_usando_query(id=None):
+    if id:
+        print("==========ENTRA ENDOPINT CONSULTAR TODAS ============")
         query_resultado = ejecutar_query(ObtenerRegulacion(id))
         map_regulacion = MapeadorRegulacionDTOJson()
         
