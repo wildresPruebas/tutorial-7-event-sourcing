@@ -8,7 +8,7 @@ objetos complejos del dominio de vuelos
 from .entidades import Regulacion
 from .reglas import MinimoUnRequisito
 from .excepciones import TipoObjetoNoExisteEnDominioVuelosExcepcion
-from aeroalpes.seedwork.dominio.repositorios import Mapeador, Repositorio
+from aeroalpes.seedwork.dominio.repositorios import Mapeador
 from aeroalpes.seedwork.dominio.fabricas import Fabrica
 from aeroalpes.seedwork.dominio.entidades import Entidad
 from aeroalpes.seedwork.dominio.eventos import EventoDominio

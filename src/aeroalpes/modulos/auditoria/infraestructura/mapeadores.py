@@ -46,12 +46,14 @@ class MapadeadorEventosRegulacion(Mapeador):
 
 
             print(f"ENTRA2 A evento########################################################################## {evento.requisitos}")
+            requisitos = [{"codigo": req.codigo, "descripcion": req.descripcion, "obligatorio": req.obligatorio} for req in evento.requisitos] if evento.requisitos else []
+
             payload = RegulacionCreadaPayload(
                 id_regulacion=str(evento.id_regulacion), 
                 nombre=str(evento.nombre),           
                 version=str(evento.version),           
                 region=str(evento.region),        
-                requisitos=[{"codigo":"algo"}],                 
+                requisitos=requisitos,              
                 fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
 

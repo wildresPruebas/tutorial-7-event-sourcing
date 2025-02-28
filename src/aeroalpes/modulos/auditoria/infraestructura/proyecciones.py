@@ -18,11 +18,12 @@ class ProyeccionRegulacion(Proyeccion, ABC):
 
 class ProyeccionRegulacionesLista(ProyeccionRegulacion):
     print("ENTRA PROYECCION REGULACIONES")
-    def __init__(self, id_regulacion, nombre, region, version, fecha_creacion, fecha_actualizacion):
+    def __init__(self, id_regulacion, nombre, region, version, fecha_creacion, requisitos, fecha_actualizacion):
         self.id_regulacion = id_regulacion
         self.nombre = nombre
         self.region = region
-        self.version = version        
+        self.version = version     
+        self.requisitos = requisitos
         self.fecha_creacion = millis_a_datetime(fecha_creacion)
         self.fecha_actualizacion = millis_a_datetime(fecha_actualizacion)
     
@@ -40,6 +41,7 @@ class ProyeccionRegulacionesLista(ProyeccionRegulacion):
                 nombre=str(self.nombre), 
                 region=str(self.region), 
                 version=str(self.version), 
+                requisitos=self.requisitos,
                 fecha_creacion=self.fecha_creacion, 
                 fecha_actualizacion=self.fecha_actualizacion))
         db.session.commit()

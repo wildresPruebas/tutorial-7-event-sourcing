@@ -27,7 +27,7 @@ class Requisito(db.Model):
     __tablename__ = "requisitos"
      
     id = db.Column(db.String(40), primary_key=True, default=uuid.uuid4) 
-    codigo = Column(db.String(5), nullable=False)
+    codigo = Column(db.String(10), nullable=False)
     descripcion = Column(db.String(500), nullable=False)
     obligatorio = Column(db.Boolean, nullable=False)
     regulacion_id = Column(db.String(40), ForeignKey("regulaciones.id"), nullable=False)
