@@ -7,11 +7,10 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import sta.modulos.vuelos.aplicacion
+    import sta.modulos.auditoria.aplicacion
 
 def importar_modelos_alchemy():
     print("ACA CREA LAS TABLAS EN LA BASE DE DATOS")
-    import sta.modulos.vuelos.infraestructura.dto
     import sta.modulos.auditoria.infraestructura.dto
 
 def comenzar_consumidor(app):
@@ -22,15 +21,12 @@ def comenzar_consumidor(app):
     """
 
     import threading
-    import sta.modulos.vuelos.infraestructura.consumidores as vuelos
     import sta.modulos.auditoria.infraestructura.consumidores as auditorias
 
     # Suscripción a eventos
-    threading.Thread(target=vuelos.suscribirse_a_eventos, args=[app]).start()
     threading.Thread(target=auditorias.suscribirse_a_eventos, args=[app]).start()
 
     # Suscripción a comandos
-    threading.Thread(target=vuelos.suscribirse_a_comandos, args=[app]).start()
     threading.Thread(target=auditorias.suscribirse_a_comandos, args=[app]).start()
 
 def create_app(configuracion={}):
@@ -60,11 +56,9 @@ def create_app(configuracion={}):
             comenzar_consumidor(app)
 
      # Importa Blueprints
-    from . import vuelos
     from . import auditoria
 
     # Registro de Blueprints
-    app.register_blueprint(vuelos.bp)
     app.register_blueprint(auditoria.bp)
 
     @app.route("/spec")
