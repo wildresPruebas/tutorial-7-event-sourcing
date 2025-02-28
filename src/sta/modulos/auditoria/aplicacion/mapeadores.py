@@ -58,7 +58,8 @@ class MapeadorRegulacion(RepMap):
         return RegulacionDTO(_id, nombre, region, version, fecha_creacion, fecha_actualizacion, requisitos)
 
     def dto_a_entidad(self, dto: RegulacionDTO) -> Regulacion:
-
+        if not dto:
+            return None
         if isinstance(dto, list): 
           return [self.dto_a_entidad(item) for item in dto]
         

@@ -10,6 +10,8 @@ class VistaRegulacion(Vista):
         params = {k: str(v) for k, v in kwargs.items() if v is not None}    
         map_regulacion = MapeadorRegulacion()
         regulacion_dto = db.session.query(RegulacionDTO).filter_by(**params).first()        
+        if not regulacion_dto:
+          return None 
         return map_regulacion.dto_a_entidad(regulacion_dto)
     
     def obtener_todas(self) -> [Regulacion]:

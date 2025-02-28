@@ -10,11 +10,13 @@ from dataclasses import dataclass
 @dataclass
 class _FabricaRegulacion(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+        if not obj:
+            return None 
         if isinstance(obj, list):
             return [self.crear_objeto(item, mapeador) for item in obj]
         if isinstance(obj, Entidad) or isinstance(obj, EventoDominio):
             return mapeador.entidad_a_dto(obj)
-        else:
+        else:            
             regulacion: Regulacion = mapeador.dto_a_entidad(obj)
             self.validar_regla(MinimoUnRequisito(regulacion.requisitos))            
             return regulacion

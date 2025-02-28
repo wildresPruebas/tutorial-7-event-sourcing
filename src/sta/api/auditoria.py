@@ -2,8 +2,7 @@ import sta.seedwork.presentacion.api as api
 import json
 from sta.seedwork.dominio.excepciones import ExcepcionDominio
 
-from flask import request, session
-from flask import Response
+from flask import request, session, Response, abort
 from sta.modulos.auditoria.aplicacion.mapeadores import MapeadorRegulacionDTOJson
 from sta.modulos.auditoria.aplicacion.comandos.crear_regulacion import CrearRegulacion
 from sta.modulos.auditoria.aplicacion.queries.obtener_regulacion import ObtenerRegulacion
@@ -48,6 +47,8 @@ def dar_regulacion_usando_query(id=None):
         print("==========ENTRA ENDOPINT CONSULTAR REGULACION ============")
         query_resultado = ejecutar_query(ObtenerRegulacion(id))
         map_regulacion = MapeadorRegulacionDTOJson()
+        if not query_resultado.resultado:
+          abort(404, description="No se encontró la regulación solicitada")
         
         return map_regulacion.dto_a_externo(query_resultado.resultado)
     else:
