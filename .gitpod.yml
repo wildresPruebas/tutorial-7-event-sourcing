@@ -15,7 +15,7 @@ tasks:
     init: > 
       docker build . -f sta.Dockerfile -t sta/flask &&
       docker build . -f adaptador.Dockerfile -t sta/adaptador &&
-      docker build . -f notificacion.Dockerfile -t sta/notificacion &&
+      gp sync-done images
   - name: Crear folder para datos, clientes, conectores y asigna permisos
     init: > 
       mkdir -p data/bookkeeper && 
