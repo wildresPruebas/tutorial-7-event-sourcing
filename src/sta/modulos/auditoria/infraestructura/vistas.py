@@ -6,12 +6,16 @@ from sta.seedwork.infraestructura.vistas import Vista
 
 
 class VistaRegulacion(Vista):
-    def obtener_por(self,**kwargs) -> [Regulacion]:
+    def obtener_por(self,**kwargs) -> [Regulacion]:        
+        params = {k: str(v) for k, v in kwargs.items() if v is not None}    
+        map_regulacion = MapeadorRegulacion()
+        regulacion_dto = db.session.query(RegulacionDTO).filter_by(**params).first()        
+        return map_regulacion.dto_a_entidad(regulacion_dto)
+    
+    def obtener_todas(self) -> [Regulacion]:
         print("==========PASO#2.1============")   
-        params = {k: str(v) for k, v in kwargs.items() if v is not None}
-        print("==========PASO#2.2============")   
         map_regulacion = MapeadorRegulacion()
         print("==========PASO#2.3============")   
-        regulacion_dto = db.session.query(RegulacionDTO).filter_by(**params).first()      
-        print(f"==========PASO#2.4============ {regulacion_dto}")     
-        return map_regulacion.dto_a_entidad(regulacion_dto)
+        regulaciones_dto = db.session.query(RegulacionDTO).all()    
+        print(f"==========PASO#2.4============ {regulaciones_dto}")     
+        return map_regulacion.dto_a_entidad(regulaciones_dto)

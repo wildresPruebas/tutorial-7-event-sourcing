@@ -7,6 +7,7 @@ from flask import Response
 from sta.modulos.auditoria.aplicacion.mapeadores import MapeadorRegulacionDTOJson
 from sta.modulos.auditoria.aplicacion.comandos.crear_regulacion import CrearRegulacion
 from sta.modulos.auditoria.aplicacion.queries.obtener_regulacion import ObtenerRegulacion
+from sta.modulos.auditoria.aplicacion.queries.obtener_todas_regulacion import ObtenerTodasRegulacion
 from sta.seedwork.aplicacion.comandos import ejecutar_commando
 from sta.seedwork.aplicacion.queries import ejecutar_query
 
@@ -41,7 +42,6 @@ def regulacion_usando_comando():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
-@bp.route('/regulacion', methods=('GET',))    
 @bp.route('/regulacion/<id>', methods=('GET',))
 def dar_regulacion_usando_query(id=None):
     if id:
@@ -54,12 +54,11 @@ def dar_regulacion_usando_query(id=None):
         return [{'message': 'GET!'}]
 
 @bp.route('/regulacion', methods=('GET',))
-def dar_todas_regulaciones_usando_query(id=None):
-    if id:
-        print("==========ENTRA ENDOPINT CONSULTAR TODAS ============")
-        query_resultado = ejecutar_query(ObtenerRegulacion(id))
+def dar_todas_regulaciones_usando_query():
+        print("==========ENTRA ENDOPINT CONSULTAR TODAS ============")   
+        query_resultado = ejecutar_query(ObtenerTodasRegulacion())
         map_regulacion = MapeadorRegulacionDTOJson()
-        
-        return map_regulacion.dto_a_externo(query_resultado.resultado)
-    else:
-        return [{'message': 'GET!'}]
+        print("==========CASO TERMINA============") 
+        return [
+         map_regulacion.dto_a_externo(data_source)  for data_source in query_resultado.resultado
+    ]

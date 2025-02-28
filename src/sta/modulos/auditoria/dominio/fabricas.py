@@ -17,6 +17,8 @@ from dataclasses import dataclass
 @dataclass
 class _FabricaRegulacion(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+        if isinstance(obj, list):
+            return [self.crear_objeto(item, mapeador) for item in obj]
         if isinstance(obj, Entidad) or isinstance(obj, EventoDominio):
             return mapeador.entidad_a_dto(obj)
         else:
@@ -28,6 +30,7 @@ class _FabricaRegulacion(Fabrica):
 class FabricaAuditorias(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
         if mapeador.obtener_tipo() == Regulacion.__class__:
+            print("ENTRA IF")
             fabrica_regulacion = _FabricaRegulacion()
             return fabrica_regulacion.crear_objeto(obj, mapeador)
         else:

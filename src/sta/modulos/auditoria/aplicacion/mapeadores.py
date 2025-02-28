@@ -16,7 +16,10 @@ class MapeadorRegulacionDTOJson(AppMap):
         return regulacion_dto
 
     def dto_a_externo(self, dto: RegulacionDTO) -> dict:
-        return dto.__dict__
+        if isinstance(dto, list):  # Si es una lista, convertir cada elemento
+          return [self.dto_a_externo(item) for item in dto]
+        else:   
+          return dto.__dict__
 
 class MapeadorRegulacion(RepMap):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
@@ -55,12 +58,15 @@ class MapeadorRegulacion(RepMap):
         return RegulacionDTO(_id, nombre, region, version, fecha_creacion, fecha_actualizacion, requisitos)
 
     def dto_a_entidad(self, dto: RegulacionDTO) -> Regulacion:
+
+        if isinstance(dto, list): 
+          return [self.dto_a_entidad(item) for item in dto]
+        
         regulacion = Regulacion()
         regulacion.nombre = dto.nombre
         regulacion.region = dto.region
         regulacion.version = dto.version
         regulacion.requisitos = list()
-
         requisitos_dto: list[RequisitoDTO] = dto.requisitos
 
         for req in requisitos_dto:

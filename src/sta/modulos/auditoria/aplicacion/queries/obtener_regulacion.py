@@ -17,8 +17,8 @@ class ObtenerRegulacionHandler(RegulacionQueryBaseHandler):
         print("==========PASO#2============")        
         result = vista.obtener_por(id=query.id)
         print("==========PASO#3============")
-        reserva =  self.fabrica_auditorias.crear_objeto(result, MapeadorRegulacion())
-        return QueryResultado(resultado=reserva)
+        regulacion =  self.fabrica_auditorias.crear_objeto(result, MapeadorRegulacion())
+        return QueryResultado(resultado=regulacion)
 
 @query.register(ObtenerRegulacion)
 def ejecutar_query_obtener_reserva(query: ObtenerRegulacion):
