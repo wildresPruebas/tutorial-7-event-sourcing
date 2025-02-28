@@ -101,22 +101,22 @@ services:
       - SYS_NICE
     restart: always
     environment:
-      - MYSQL_DATABASE=reservas
+      - MYSQL_DATABASE=auditoria
       - MYSQL_ROOT_PASSWORD=adminadmin
-    profiles: ["aeroalpes", "db"]
+    profiles: ["sta", "db"]
     networks:
       - pulsar
     ports:
       - '3306:3306'
     volumes:
       - ./data/mysql:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  
-  # Servicios de AeroAlpes
-  aeroalpes:
-    container_name: aeroalpes
-    hostname: aeroalpes
-    image: aeroalpes/flask 
-    profiles: ["aeroalpes", "monolito"]
+      #- ./init.sql:/docker-entrypoint-initdb.d/init.sql  
+  # Servicios de STA
+  sta:
+    container_name: sta
+    hostname: sta
+    image: sta/flask 
+    profiles: ["sta", "monolito"]
     networks:
       - sidecar
       - pulsar
@@ -126,52 +126,21 @@ services:
       - broker
       - db
     environment:
-      - AEROALPES_ADDRESS=aeroalpes
+      - STA_ADDRESS=sta
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
   adaptador:
-    image: "aeroalpes/adaptador"
-    profiles: ["aeroalpes", "monolito"]
+    image: "sta/adaptador"
+    profiles: ["sta", "monolito"]
     container_name: adaptador
     hostname: adaptador
     depends_on:
-      - aeroalpes
+      - sta
     networks:
       - sidecar
     environment:
-      - AEROALPES_ADDRESS=aeroalpes
+      - STA_ADDRESS=sta
       - PULSAR_ADDRESS=broker
     ports:
       - "50051:50051"
-  
-  # Servicios de Notificación
-  notificacion:
-    container_name: notificacion
-    hostname: notificacion
-    image: aeroalpes/notificacion 
-    profiles: ["aeroalpes", "notificacion"]
-    depends_on:
-      - aeroalpes
-      - broker
-    environment:
-      - AEROALPES_ADDRESS=aeroalpes
-      - PULSAR_ADDRESS=broker
-    networks:
-      - pulsar
-  # Servicio UI
-  ui:
-    container_name: ui
-    hostname: ui
-    image: aeroalpes/ui 
-    profiles: ["aeroalpes", "ui"]
-    depends_on:
-      - aeroalpes
-      - broker
-    environment:
-      - AEROALPES_ADDRESS=aeroalpes
-      - PULSAR_ADDRESS=broker
-    networks:
-      - pulsar
-    ports:
-      - "5678:5678"

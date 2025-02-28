@@ -8,12 +8,12 @@ Este repositorio está basado en el repositorio de liberación de datos visto en
 
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
 
-- El archivo **src/aeroalpes/config/uow.py** ahora incluye una unidad de trabajo para Pulsar, esta nos va ayudar a mantener la consistencia transaccional en el servicio usando Apache Pulsar como nuestro Event Store.
-- El archivo **src/aeroalpes/modulos/vuelos/infraestructura/proyecciones.py** cuenta con las diferentes formas en que podemos hacer proyección de nuestros datos. Una de las proyecciones tiene propósitos analíticos y la otra transaccionales.
-- El archivo **src/aeroalpes/modulos/vuelos/infraestructura/vistas.py** cuenta con el modelo de vistas que podemos exponer a nuestro clientes. Como se puede observar, este es un modelo bastante genérico definido en el seedwork (pero usted puede hacerlo mucho más complejo).
-- Los archivos **src/aeroalpes/seedwork/infraestructura/proyecciones.py** y **src/aeroalpes/seedwork/infraestructura/vistas.py** proveen las interfaces y definiciones genéricas para las proyecciones, handlers y vistas.
+- El archivo **src/sta/config/uow.py** ahora incluye una unidad de trabajo para Pulsar, esta nos va ayudar a mantener la consistencia transaccional en el servicio usando Apache Pulsar como nuestro Event Store.
+- El archivo **src/sta/modulos/vuelos/infraestructura/proyecciones.py** cuenta con las diferentes formas en que podemos hacer proyección de nuestros datos. Una de las proyecciones tiene propósitos analíticos y la otra transaccionales.
+- El archivo **src/sta/modulos/vuelos/infraestructura/vistas.py** cuenta con el modelo de vistas que podemos exponer a nuestro clientes. Como se puede observar, este es un modelo bastante genérico definido en el seedwork (pero usted puede hacerlo mucho más complejo).
+- Los archivos **src/sta/seedwork/infraestructura/proyecciones.py** y **src/sta/seedwork/infraestructura/vistas.py** proveen las interfaces y definiciones genéricas para las proyecciones, handlers y vistas.
 
-## AeroAlpes
+## SalusdTechDeLosAlpes
 ### Ejecutar Base de datos
 Desde el directorio principal ejecute el siguiente comando.
 
@@ -28,13 +28,13 @@ Este comando descarga las imágenes e instala las dependencias de la base datos.
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-flask --app src/aeroalpes/api run
+flask --app src/sta/api run
 ```
 
 Siempre puede ejecutarlo en modo DEBUG:
 
 ```bash
-flask --app src/aeroalpes/api --debug run
+flask --app src/sta/api --debug run
 ```
 
 ### Ejecutar pruebas
@@ -53,7 +53,7 @@ coverage report
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker build . -f aeroalpes.Dockerfile -t aeroalpes/flask
+docker build . -f sta.Dockerfile -t sta/flask
 ```
 
 ### Ejecutar contenedora (sin compose)
@@ -61,7 +61,7 @@ docker build . -f aeroalpes.Dockerfile -t aeroalpes/flask
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker run -p 5000:5000 aeroalpes/flask
+docker run -p 5000:5000 sta/flask
 ```
 
 ## Sidecar/Adaptador
@@ -104,7 +104,7 @@ python -m grpc_tools.protoc -Iprotos --python_out=./pb2py --pyi_out=./pb2py --gr
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker build . -f adaptador.Dockerfile -t aeroalpes/adaptador
+docker build . -f adaptador.Dockerfile -t sta/adaptador
 ```
 
 ### Ejecutar contenedora (sin compose)
@@ -112,7 +112,7 @@ docker build . -f adaptador.Dockerfile -t aeroalpes/adaptador
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker run -p 50051:50051 aeroalpes/adaptador
+docker run -p 50051:50051 sta/adaptador
 ```
 
 ## Microservicio Notificaciones
@@ -129,7 +129,7 @@ python src/notificaciones/main.py
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker build . -f notificacion.Dockerfile -t aeroalpes/notificacion
+docker build . -f notificacion.Dockerfile -t sta/notificacion
 ```
 
 ### Ejecutar contenedora (sin compose)
@@ -137,7 +137,7 @@ docker build . -f notificacion.Dockerfile -t aeroalpes/notificacion
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker run aeroalpes/notificacion
+docker run sta/notificacion
 ```
 
 ## UI Websocket Server
@@ -154,7 +154,7 @@ python src/ui/main.py
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker build . -f ui.Dockerfile -t aeroalpes/ui
+docker build . -f ui.Dockerfile -t sta/ui
 ```
 
 ### Ejecutar contenedora (sin compose)
@@ -162,7 +162,7 @@ docker build . -f ui.Dockerfile -t aeroalpes/ui
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker run aeroalpes/ui
+docker run sta/ui
 ```
 
 ## CDC & Debezium
@@ -198,7 +198,7 @@ docker exec -it broker bash
 Ya dentro de la contenedora ejecute:
 
 ```bash
-./bin/pulsar-client consume -s "sub-datos" public/default/aeroalpesdb.reservas.usuarios_legado -n 0
+./bin/pulsar-client consume -s "sub-datos" public/default/stadb.reservas.usuarios_legado -n 0
 ```
 
 ### Consultar tópicos
@@ -303,5 +303,5 @@ fuser -k <puerto>/tcp
 
 ### Correr docker-compose usando profiles
 ```bash
-docker-compose --profile <pulsar|aeroalpes|ui|notificacion> up
+docker-compose --profile <pulsar|sta|ui|notificacion> up
 ```

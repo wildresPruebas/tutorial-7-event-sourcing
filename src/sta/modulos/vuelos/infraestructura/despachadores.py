@@ -1,0 +1,37 @@
+import pulsar
+from pulsar.schema import *
+
+from sta.modulos.vuelos.infraestructura.schema.v1.eventos import EventoReservaCreada, ReservaCreadaPayload
+from sta.modulos.vuelos.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
+from sta.seedwork.infraestructura import utils
+
+from sta.modulos.vuelos.infraestructura.mapeadores import MapadeadorEventosReserva
+
+class Despachador:
+    def __init__(self):
+        self.mapper = MapadeadorEventosReserva()
+
+    def _publicar_mensaje(self, mensaje, topico, schema):
+        print("   ")
+        print(F"==========PUBLICAR MENSAJE EN TOPICO PULSAR============ {topico}")
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoReservaCreada))
+        publicador.send(mensaje)
+        cliente.close()
+
+    def publicar_evento(self, evento, topico):
+        print("   ")
+        print(f"==========PUBLICAR EVENTO EN TOPICO ============{topico}")
+        evento = self.mapper.entidad_a_dto(evento)
+        self._publicar_mensaje(evento, topico, AvroSchema(evento.__class__))
+
+    def publicar_comando(self, comando, topico):
+        print("   ")
+        print(F"==========PUBLICAR COMANDO EN TOPICO ============ {topico}")
+        # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
+        payload = ComandoCrearReservaPayload(
+            id_usuario=str(comando.id_usuario)
+            # agregar itinerarios
+        )
+        comando_integracion = ComandoCrearReserva(data=payload)
+        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearReserva))
