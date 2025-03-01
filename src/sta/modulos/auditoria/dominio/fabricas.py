@@ -24,8 +24,7 @@ class _FabricaRegulacion(Fabrica):
 @dataclass
 class FabricaAuditorias(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
-        if mapeador.obtener_tipo() == Regulacion.__class__:
-            print("ENTRA IF")
+        if mapeador.obtener_tipo() == Regulacion.__class__:            
             fabrica_regulacion = _FabricaRegulacion()
             return fabrica_regulacion.crear_objeto(obj, mapeador)
         else:

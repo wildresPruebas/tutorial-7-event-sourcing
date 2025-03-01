@@ -60,13 +60,9 @@ class RepositorioEventosRegulacionSQLAlchemy(RepositorioEventosRegulaciones):
         raise NotImplementedError
 
     def agregar(self, evento):
-        regulacion_evento = self.fabrica_auditorias.crear_objeto(evento, MapadeadorEventosRegulacion())
-        print(F"LLEGA ACA1  {regulacion_evento.data}")
-        print(F"LLEGA ACA2  {regulacion_evento.data.__class__}")
-        parser_payload = JsonSchema(regulacion_evento.data.__class__)
-        print(F"LLEGA ACA2  {regulacion_evento.data}")
-        json_str = parser_payload.encode(regulacion_evento.data)
-        print(F"LLEGA ACA3  {regulacion_evento.data}")
+        regulacion_evento = self.fabrica_auditorias.crear_objeto(evento, MapadeadorEventosRegulacion())                
+        parser_payload = JsonSchema(regulacion_evento.data.__class__)        
+        json_str = parser_payload.encode(regulacion_evento.data)        
         evento_dto = EventosRegulacion()
         evento_dto.id = str(evento.id)
         evento_dto.id_entidad = str(evento.id_regulacion)
@@ -76,7 +72,7 @@ class RepositorioEventosRegulacionSQLAlchemy(RepositorioEventosRegulaciones):
         evento_dto.formato_contenido = 'JSON'
         evento_dto.nombre_servicio = str(regulacion_evento.service_name)
         evento_dto.contenido = json_str
-        print("PERSISTE EN BASE DE DATOS EL EVENTOOOO") 
+        print("PERSISTE SIN COMMIT EN BASE DE DATOS EL EVENTOOOO") 
         db.session.add(evento_dto)
 
     def actualizar(self, regulacion: Regulacion):
