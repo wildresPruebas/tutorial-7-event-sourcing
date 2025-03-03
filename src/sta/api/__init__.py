@@ -23,11 +23,7 @@ def comenzar_consumidor(app):
     import threading
     import sta.modulos.auditoria.infraestructura.consumidores as auditorias
 
-    # Suscripción a eventos
-    threading.Thread(target=auditorias.suscribirse_a_eventos, args=[app]).start()
-
-    # Suscripción a comandos
-    threading.Thread(target=auditorias.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=auditorias.realizar_suscripcion, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
